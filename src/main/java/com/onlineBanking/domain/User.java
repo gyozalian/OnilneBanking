@@ -1,16 +1,21 @@
 package com.onlineBanking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.onlineBanking.domain.Security.Authority;
+import com.onlineBanking.domain.Security.UserRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by tigrangyozalyan on 7/8/17.
  */
 
 @Entity
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +46,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Recipient> recipientList;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private HashSet<UserRole>  userRoles = new HashSet<>();
+
     public Long getUserId() {
         return userId;
     }
@@ -67,6 +76,21 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -122,6 +146,11 @@ public class User {
         this.recipientList = recipientList;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -155,4 +184,13 @@ public class User {
                 ", recipientList=" + recipientList +
                 '}';
     }
+
+    @Override
+    public Collection <? extends GrantedAuthority> getAuthority(){
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
+
+    }
+
 }
