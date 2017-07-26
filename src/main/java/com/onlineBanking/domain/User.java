@@ -29,7 +29,7 @@ public class User implements UserDetails{
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-    private String phonenumber;
+    private String phone;
 
     private boolean enabled = true;
 
@@ -48,7 +48,15 @@ public class User implements UserDetails{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private HashSet<UserRole>  userRoles = new HashSet<>();
+    private Set<UserRole>  userRoles = new HashSet<>();
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     public Long getUserId() {
         return userId;
@@ -148,7 +156,9 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
     }
 
     public String getPassword() {
@@ -159,12 +169,12 @@ public class User implements UserDetails{
         this.password = password;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -176,7 +186,7 @@ public class User implements UserDetails{
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
+                ", phone='" + phone + '\'' +
                 ", enabled=" + enabled +
                 ", primaryAccount=" + primaryAccount +
                 ", savingsAccount=" + savingsAccount +
@@ -185,12 +195,6 @@ public class User implements UserDetails{
                 '}';
     }
 
-    @Override
-    public Collection <? extends GrantedAuthority> getAuthority(){
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
-        return authorities;
 
-    }
 
 }

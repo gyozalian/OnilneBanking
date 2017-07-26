@@ -1,5 +1,6 @@
 package com.onlineBanking.Config;
 
+import com.onlineBanking.Service.ServiceImpl.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
 import org.springframework.context.annotation.Bean;

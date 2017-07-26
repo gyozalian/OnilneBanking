@@ -61,7 +61,7 @@ public class HomeController {
         }
 
         else {
-                userService.save(user);
+                userService.createUser(user);
 //            Set<UserRole> userRoles = new HashSet<>();
 //            userRoles.add(new UserRole(user, roleDao.findByName("USER")));
 //            userService.createUser(user, userRoles);

@@ -26,18 +26,14 @@ public class UserSecurityService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUsersByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
-        if (null==user){
-            LOG.warn("Username {} Not Found",username);
-            throw new UsernameNotFoundException("Username "+ username +" Not Found");
+        if (null == user) {
+            LOG.warn("Username {} not found", username);
+            throw new UsernameNotFoundException("Username " + username + " not found");
         }
         return user;
     }
 
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
 }
