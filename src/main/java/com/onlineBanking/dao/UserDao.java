@@ -1,4 +1,4 @@
-package com.onlineBanking.Dao;
+package com.onlineBanking.dao;
 
 import com.onlineBanking.domain.User;
 import org.springframework.data.repository.CrudRepository;

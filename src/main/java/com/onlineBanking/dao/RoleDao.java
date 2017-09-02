@@ -1,4 +1,4 @@
-package com.onlineBanking.Dao;
+package com.onlineBanking.dao;
 
 import com.onlineBanking.domain.Security.Role;
 import org.springframework.data.repository.CrudRepository;

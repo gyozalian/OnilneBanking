@@ -1,6 +1,6 @@
 package com.onlineBanking.Service.ServiceImpl;
 
-import com.onlineBanking.Dao.UserDao;
+import com.onlineBanking.dao.UserDao;
 import com.onlineBanking.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

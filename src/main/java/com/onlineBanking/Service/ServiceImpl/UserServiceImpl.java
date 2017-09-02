@@ -1,7 +1,8 @@
 package com.onlineBanking.Service.ServiceImpl;
 
-import com.onlineBanking.Dao.RoleDao;
-import com.onlineBanking.Dao.UserDao;
+import com.onlineBanking.Service.AccountService;
+import com.onlineBanking.dao.RoleDao;
+import com.onlineBanking.dao.UserDao;
 import com.onlineBanking.Service.UserService;
 import com.onlineBanking.domain.Security.UserRole;
 import com.onlineBanking.domain.User;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
