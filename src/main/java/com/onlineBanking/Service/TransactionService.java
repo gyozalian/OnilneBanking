@@ -11,9 +11,11 @@ import java.util.List;
 public interface TransactionService  {
 
      List<PrimaryTransaction> findPrimaryTransactionList (String username);
-     List<SavingsTransaction> savingsTransactionsList (String username);
-     void savePrimaryTransaction (PrimaryTransaction primaryTransaction);
-     void saveSavingsTransaction (SavingsTransaction savingsTransaction);
+     List<SavingsTransaction> findSavingsTransactionList (String username);
+        void savePrimaryDepositTransaction(PrimaryTransaction primaryTransaction);
+        void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction);
+        void savePrimaryWithdrawTransaction(PrimaryTransaction primaryTransaction);
+        void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction);
 
 
     }

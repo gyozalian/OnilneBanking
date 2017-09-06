@@ -36,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
         return primaryTransactions;
     }
 
-    public List<SavingsTransaction> savingsTransactionsList (String username){
+    public List<SavingsTransaction> findSavingsTransactionList (String username){
         User user = userService.findByUsername(username);
 
         List<SavingsTransaction> savingsTransactions = user.getSavingsAccount().getSavingsTransactionList();
@@ -44,13 +44,20 @@ public class TransactionServiceImpl implements TransactionService {
         return savingsTransactions;
     }
 
-    public void savePrimaryTransaction (PrimaryTransaction primaryTransaction){
+    public void savePrimaryDepositTransaction(PrimaryTransaction primaryTransaction) {
         primaryTransactionDao.save(primaryTransaction);
     }
 
-    public void saveSavingsTransaction (SavingsTransaction savingsTransaction){
+    public void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction) {
         savingsTransactionDao.save(savingsTransaction);
     }
 
+    public void savePrimaryWithdrawTransaction(PrimaryTransaction primaryTransaction) {
+        primaryTransactionDao.save(primaryTransaction);
+    }
+
+    public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionDao.save(savingsTransaction);
+    }
 
 }
